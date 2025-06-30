@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+
+// Contexto y rutas
+import { ThemeProvider } from '@context/ThemeContext';
+import { ROUTES } from '@config/routes';
+
+// Componentes de diseño
+import Navbar from '@layout/Navbar';
+import Footer from '@layout/Footer';
+
+// Secciones
+import Home from '@sections/Home';
+import About from '@sections/About';
+import Projects from '@sections/Projects';
+import Contact from '@sections/Contact';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simular carga de datos
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="animate-pulse text-2xl font-semibold text-primary-600 dark:text-primary-400">
+          Cargando...
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <ThemeProvider>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path={ROUTES.HOME} element={<Home />} />
+              <Route path={ROUTES.ABOUT} element={<About />} />
+              <Route path={ROUTES.PROJECTS} element={<Projects />} />
+              <Route path={ROUTES.CONTACT} element={<Contact />} />
+            </Routes>
+          </AnimatePresence>
+        </main>
+        <Footer />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
