@@ -1,37 +1,23 @@
 # Portafolio
 
-Este repositorio ahora está organizado en dos partes principales:
-
-- `frontend/`: Contiene el código del frontend (React + TypeScript + Vite).
-- `backend/`: Contendrá el código del backend (puedes usar Node.js, Express, etc.).
-
-## Estructura del proyecto
-
-```
-portafolio/
-│
-├── frontend/   # Código del frontend (React)
-│
-└── backend/    # Código del backend (por ejemplo, Node.js/Express)
-```
+Este repositorio contiene el código del frontend de mi portafolio personal, desarrollado con React + TypeScript + Vite.
 
 ## Instrucciones
 
-1. Para trabajar en el frontend:
-   ```
-   cd frontend
-   # ...comandos para desarrollo frontend...
-   ```
+Para trabajar en el frontend:
+```
+cd frontend
+# ...comandos para desarrollo frontend...
+```
 
-2. Para trabajar en el backend:
-   ```
-   cd backend
-   # ...comandos para desarrollo backend...
-   ```
+## Acceso a mis aplicaciones
 
-## Notas sobre GitHub
+Desde el portafolio podrás encontrar enlaces que redireccionan a las diferentes aplicaciones que tengo dockerizadas y expuestas en mi red local o en internet.
 
-Puedes mantener ambos en este mismo repositorio, o si prefieres, crear dos repositorios separados en GitHub y subir cada carpeta a su respectivo repo.
+## Notas
+
+- Este proyecto está enfocado únicamente en el frontend.
+- Puedes usar Docker Compose para levantar este frontend junto con otros servicios si lo deseas.
 
 # React + TypeScript + Vite
 
@@ -88,6 +74,20 @@ export default tseslint.config([
     extends: [
       // Other configs...
       // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
       reactX.configs['recommended-typescript'],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
