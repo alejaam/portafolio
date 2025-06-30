@@ -1,2 +1,2 @@
 # portafolio
-Portafolio personal donde se muestra la informacion de mi carrera como estudiante y profesional.
+Portafolio personal donde podrás encontrar la informacion de mi carrera como estudiante y profesional. :)
