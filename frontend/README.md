@@ -1,3 +1,38 @@
+# Portafolio
+
+Este repositorio ahora está organizado en dos partes principales:
+
+- `frontend/`: Contiene el código del frontend (React + TypeScript + Vite).
+- `backend/`: Contendrá el código del backend (puedes usar Node.js, Express, etc.).
+
+## Estructura del proyecto
+
+```
+portafolio/
+│
+├── frontend/   # Código del frontend (React)
+│
+└── backend/    # Código del backend (por ejemplo, Node.js/Express)
+```
+
+## Instrucciones
+
+1. Para trabajar en el frontend:
+   ```
+   cd frontend
+   # ...comandos para desarrollo frontend...
+   ```
+
+2. Para trabajar en el backend:
+   ```
+   cd backend
+   # ...comandos para desarrollo backend...
+   ```
+
+## Notas sobre GitHub
+
+Puedes mantener ambos en este mismo repositorio, o si prefieres, crear dos repositorios separados en GitHub y subir cada carpeta a su respectivo repo.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
