@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { LANGS, localizePath, type Content } from '../content';
+import { DEFAULT_LANG, LANGS, localizePath, type Content } from '../content';
 
 interface Props {
   content: Content;
@@ -9,7 +9,7 @@ interface Props {
 const { content } = Astro.props;
 const { lang, meta } = content;
 const pathname = Astro.url.pathname;
-const skipLabel = lang === 'es' ? 'Saltar al contenido' : 'Skip to content';
+const { skipLabel } = meta;
 ---
 
 <!doctype html>
@@ -22,7 +22,7 @@ const skipLabel = lang === 'es' ? 'Saltar al contenido' : 'Skip to content';
     <meta name="theme-color" content="#FFFFFF" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {LANGS.map((l) => <link rel="alternate" hreflang={l} href={localizePath(pathname, l)} />)}
-    <link rel="alternate" hreflang="x-default" href={localizePath(pathname, 'es')} />
+    <link rel="alternate" hreflang="x-default" href={localizePath(pathname, DEFAULT_LANG)} />
     <link
       rel="preload"
       href="/fonts/familjen-grotesk-latin-700-normal.woff2"

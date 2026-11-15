@@ -23,11 +23,22 @@ pnpm check      # verificación de tipos y plantillas (astro check)
 ## Compilar
 
 ```sh
-pnpm build      # genera el sitio estático en dist/
+pnpm build      # genera el sitio estático en dist/ y luego corre las pruebas
 pnpm preview    # sirve dist/ localmente para revisarlo
 ```
 
 La verificación automática corre `pnpm install --frozen-lockfile && pnpm check && pnpm build`.
+
+## Pruebas
+
+```sh
+pnpm test       # corre tests/*.test.mjs con el runner de Node (node:test)
+```
+
+No usan dependencias extra. `pnpm build` las corre al terminar, así que una regresión rompe la verificación automática:
+
+- `tests/paths.test.mjs`: `localizePath` (cambio de idioma sin duplicar prefijos como `/en/es/`).
+- `tests/dist.test.mjs`: revisa `dist/`: la raíz redirige a `/es/`, existen `/es/` y `/en/` con su `lang`, y el selector apunta al otro idioma y marca el actual. Necesita un build previo.
 
 ## Estructura
 
@@ -38,11 +49,13 @@ src/
     en.ts        contenido en inglés
     shared.ts    enlaces, correo y CV (iguales en los dos idiomas)
     types.ts     forma del contenido; ambos idiomas la cumplen
-    index.ts     idiomas disponibles y helpers de rutas
+    paths.js     idiomas disponibles y helpers de rutas (JS para probarlo con Node)
+    index.ts     punto de entrada: contenido por idioma y reexporta paths.js
   components/    una fila del bento por componente
   layouts/       documento HTML base
   pages/[lang]/  genera /es/ y /en/
   styles/        CSS global (variables, retícula) y @font-face
+tests/           pruebas con node:test (rutas por idioma y sitio compilado)
 public/
   fonts/         Familjen Grotesk e IBM Plex Mono en woff2 (SIL OFL 1.1)
   cv/            CV en PDF

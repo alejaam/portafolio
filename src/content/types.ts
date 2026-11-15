@@ -28,6 +28,8 @@ export interface Content {
   meta: {
     title: string;
     description: string;
+    /** Enlace "saltar al contenido" para teclado y lectores de pantalla. */
+    skipLabel: string;
   };
   header: {
     name: string;

@@ -18,6 +18,7 @@ export const es: Content = {
     title: 'Javier Alamar · Backend Engineer en Go',
     description:
       'Javier Alamar, Software Engineer backend en Go. Más de cinco años en Mercado Libre y herramientas que ponen a agentes de IA a programar.',
+    skipLabel: 'Saltar al contenido',
   },
   header: {
     name: 'Javier Alamar',
