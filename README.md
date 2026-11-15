@@ -4,7 +4,7 @@ Portafolio personal de Javier Alamar, Software Engineer backend en Go. Es un sit
 
 ## Requisitos
 
-- Node.js 22.12 o superior
+- Node.js 22.23.4 o superior
 - pnpm 10 (`corepack enable` toma la versión declarada en `package.json`)
 
 ## Instalar
