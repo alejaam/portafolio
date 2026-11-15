@@ -1,0 +1,27 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ContactRow from '../../components/ContactRow.astro';
+import ExperienceRow from '../../components/ExperienceRow.astro';
+import FeaturedRow from '../../components/FeaturedRow.astro';
+import HeroRow from '../../components/HeroRow.astro';
+import ProjectsRow from '../../components/ProjectsRow.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import { getContent, LANGS, type Lang } from '../../content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export const getStaticPaths = (() =>
+  LANGS.map((lang) => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+const content = getContent(Astro.params.lang as Lang);
+---
+
+<BaseLayout content={content}>
+  <SiteHeader content={content} />
+  <main id="main" class="page-main">
+    <HeroRow content={content} />
+    <FeaturedRow content={content} />
+    <ProjectsRow content={content} />
+    <ExperienceRow content={content} />
+    <ContactRow content={content} />
+  </main>
+</BaseLayout>
