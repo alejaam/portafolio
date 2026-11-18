@@ -10,117 +10,23 @@ const { header, lang } = content;
 const pathname = Astro.url.pathname;
 ---
 
-<header class="row site-header">
-  <div class="cell span-4 md-span-4 site-header__brand">
-    <a class="site-header__name" href={`/${lang}/`} aria-label={header.homeLabel}>{header.name}</a>
-  </div>
-  <div class="cell span-8 md-span-8 site-header__bar">
-    <nav aria-label={header.navLabel}>
-      <ul class="site-header__nav">
-        <li><a href="#projects">{header.nav.projects}</a></li>
-        <li><a href="#experience">{header.nav.experience}</a></li>
-        <li><a href="#contact">{header.nav.contact}</a></li>
-      </ul>
-    </nav>
-    <ul class="lang-switch" aria-label={header.langSwitchLabel}>
-      {
-        LANGS.map((l) => (
-          <li>
-            <a
-              href={localizePath(pathname, l)}
-              hreflang={l}
-              lang={l}
-              aria-current={l === lang ? 'page' : undefined}
-            >
-              {l.toUpperCase()}
-              <span class="sr-only">{header.langNames[l]}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-</header>
-
-<style>
-  .site-header .cell {
-    display: flex;
-    align-items: center;
-    padding-block: 10px;
-  }
-
-  .site-header__name {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--touch);
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: -0.02em;
-    text-decoration: none;
-  }
-
-  .site-header__bar {
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    gap: 8px 24px;
-  }
-
-  .site-header__nav,
-  .lang-switch {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .site-header__nav {
-    gap: 0 20px;
-  }
-
-  .site-header__nav a {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--touch);
-    font-weight: 500;
-    text-decoration: none;
-  }
-  .site-header__nav a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-
-  .lang-switch {
-    border: var(--line) solid var(--c-ink);
-  }
-  .lang-switch li + li {
-    border-left: var(--line) solid var(--c-ink);
-  }
-  .lang-switch a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: var(--touch);
-    min-height: var(--touch);
-    padding: 0 10px;
-    font-family: var(--font-mono);
-    font-size: var(--fs-label);
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-  }
-  .lang-switch a[aria-current='page'] {
-    background: var(--c-ink);
-    color: var(--c-on-ink);
-  }
-  .lang-switch a[aria-current='page']:focus-visible {
-    outline-color: var(--c-ink);
-  }
-  .lang-switch a:not([aria-current]):hover {
-    background: var(--c-cell-alt);
-  }
-
-  @media (max-width: 720px) {
-    .site-header__bar {
-      justify-content: space-between;
+<header class="site-header">
+  <a class="site-header__name" href={`/${lang}/`} aria-label={header.homeLabel}>{header.name}</a>
+  <ul class="lang-switch" aria-label={header.langSwitchLabel}>
+    {
+      LANGS.map((l) => (
+        <li>
+          <a
+            href={localizePath(pathname, l)}
+            hreflang={l}
+            lang={l}
+            aria-current={l === lang ? 'page' : undefined}
+          >
+            {l.toUpperCase()}
+            <span class="sr-only">{header.langNames[l]}</span>
+          </a>
+        </li>
+      ))
     }
-  }
-</style>
+  </ul>
+</header>

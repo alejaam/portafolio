@@ -58,8 +58,9 @@ for (const [lang, other] of [
 }
 
 test('el contenido cambia de idioma', () => {
-  assert.match(page('/es/'), /Backend en Go para sistemas que usan millones de personas\./);
+  assert.match(page('/es/'), /<title>[^<]*Backend Engineer en Go<\/title>/);
   const en = page('/en/');
-  assert.doesNotMatch(en, /Backend en Go para sistemas/);
+  assert.match(en, /<title>[^<]*Go Backend Engineer<\/title>/);
+  assert.doesNotMatch(en, /Backend Engineer en Go/);
   assert.doesNotMatch(en, /Saltar al contenido/);
 });

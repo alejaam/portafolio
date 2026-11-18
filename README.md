@@ -47,31 +47,19 @@ src/
   content/       todo el texto del sitio
     es.ts        contenido en español
     en.ts        contenido en inglés
-    shared.ts    enlaces, correo y CV (iguales en los dos idiomas)
     types.ts     forma del contenido; ambos idiomas la cumplen
     paths.js     idiomas disponibles y helpers de rutas (JS para probarlo con Node)
     index.ts     punto de entrada: contenido por idioma y reexporta paths.js
-  components/    una fila del bento por componente
+  components/    componentes de la página (hoy, la cabecera con el selector ES/EN)
   layouts/       documento HTML base
   pages/[lang]/  genera /es/ y /en/
-  styles/        CSS global (variables, retícula) y @font-face
+  styles/        CSS global (variables de diseño)
 tests/           pruebas con node:test (rutas por idioma y sitio compilado)
-public/
-  fonts/         Familjen Grotesk e IBM Plex Mono en woff2 (SIL OFL 1.1)
-  cv/            CV en PDF
 ```
 
 - **Textos:** se editan solo en `src/content/es.ts` y `src/content/en.ts`. Los componentes no tienen textos propios.
-- **Estilos:** CSS propio con variables en `src/styles/global.css`, sin Tailwind ni librerías de componentes. El bento es un contenedor con fondo tinta y `gap: 1px`: las líneas son el hueco entre celdas.
-- **Fuentes:** se sirven desde `public/fonts/`, no desde un CDN.
+- **Estilos:** CSS propio con variables en `src/styles/global.css`, sin Tailwind ni librerías de componentes.
 
-## Contenido pendiente
+## Estado
 
-Hay valores provisionales marcados con `PENDIENTE` (búsqueda: `grep -rn PENDIENTE src`):
-
-| Dato | Dónde |
-|---|---|
-| Correo de contacto | `PENDING_CONTACT_EMAIL` en `src/content/shared.ts` |
-| URL de LinkedIn | `PENDING_LINKEDIN_URL` en `src/content/shared.ts` |
-| CV en PDF | reemplazar `public/cv/javier-alamar-cv.pdf` (hoy es un PDF provisional) |
-| Descripción del puesto actual | `PENDING_CURRENT_ROLE_DESCRIPTION` en `src/content/es.ts` y `en.ts` |
+El rediseño se entrega en varios PRs. Este es la base: Astro, pnpm, rutas `/es/` y `/en/` con redirección desde `/`, selector de idioma y variables de diseño. La página de inicio todavía está vacía: las filas del bento con su contenido (ES/EN) llegan en el siguiente PR, y la retícula, los estilos y las fuentes (Familjen Grotesk e IBM Plex Mono, servidas desde `public/fonts/`) en otro después.
