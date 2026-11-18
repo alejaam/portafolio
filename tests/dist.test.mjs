@@ -58,8 +58,52 @@ for (const [lang, other] of [
 }
 
 test('el contenido cambia de idioma', () => {
-  assert.match(page('/es/'), /Backend en Go para sistemas que usan millones de personas\./);
+  assert.match(page('/es/'), /<title>[^<]*Backend Engineer en Go<\/title>/);
   const en = page('/en/');
-  assert.doesNotMatch(en, /Backend en Go para sistemas/);
+  assert.match(en, /<title>[^<]*Go Backend Engineer<\/title>/);
+  assert.doesNotMatch(en, /Backend Engineer en Go/);
   assert.doesNotMatch(en, /Saltar al contenido/);
+});
+
+for (const lang of ['es', 'en']) {
+  test(`/${lang}/ tiene la cabecera y las cinco filas del bento en orden`, () => {
+    const html = page(`/${lang}/`);
+    const header = html.indexOf('<header');
+    const main = html.indexOf('<main');
+    assert.ok(header > -1 && main > header, 'la cabecera va antes de <main>');
+    const rows = [...html.matchAll(/\bdata-row="([^"]+)"/g)].map((m) => m[1]);
+    assert.deepEqual(rows, ['hero', 'featured', 'projects', 'experience', 'contact']);
+  });
+
+  test(`/${lang}/ enlaza los cuatro repos y el contacto`, () => {
+    const html = page(`/${lang}/`);
+    for (const repo of ['micha', 'tourney-rank', 'twitch-gpt-bot', 'devharness']) {
+      assert.match(html, new RegExp(`<a class="cell cell--project" href="https://github.com/alejaam/${repo}"`));
+    }
+    assert.match(html, /href="mailto:ale\.jaam21@gmail\.com"/);
+    assert.match(html, /href="https:\/\/github.com\/alejaam"/);
+    assert.match(html, /href="https:\/\/www\.linkedin\.com\/in\/alejandro-alamar"/);
+  });
+
+  test(`/${lang}/ no publica datos de contacto provisionales ni un CV que no existe`, () => {
+    const html = page(`/${lang}/`);
+    assert.doesNotMatch(html, /example\.com|linkedin\.com\/in\/pendiente/i);
+    assert.doesNotMatch(html, /href="\/cv\//);
+  });
+
+  test(`/${lang}/ enlaza el menú a anclas que existen`, () => {
+    const html = page(`/${lang}/`);
+    const nav = html.match(/<nav class="site-nav"[\s\S]*?<\/nav>/);
+    assert.ok(nav, 'no se encontró el menú');
+    const anchors = [...nav[0].matchAll(/href="#([^"]+)"/g)].map((m) => m[1]);
+    assert.equal(anchors.length, 3);
+    for (const id of anchors) assert.match(html, new RegExp(`\\bid="${id}"`));
+  });
+}
+
+test('/en/ no arrastra textos en español', () => {
+  const en = page('/en/');
+  for (const es of ['Proyecto principal', 'Con qué trabajo', 'Escríbeme', 'Trayectoria', 'Ahora']) {
+    assert.doesNotMatch(en, new RegExp(es));
+  }
 });

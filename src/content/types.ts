@@ -1,28 +1,15 @@
 export type Lang = 'es' | 'en';
 
-export interface Labelled {
+/** Enlace con texto visible. */
+export interface Link {
   label: string;
+  href: string;
 }
 
-export interface Stat extends Labelled {
-  value: string;
-  caption: string;
-}
-
-export interface Project extends Labelled {
-  name: string;
-  description: string;
-  stack: string;
-  url: string;
-}
-
-export interface Job {
-  dates: string;
-  role: string;
-  company: string;
-  description: string;
-}
-
+/**
+ * Forma del contenido de cada idioma. `es.ts` y `en.ts` la cumplen, así que
+ * un texto que falta en un idioma rompe `pnpm check`.
+ */
 export interface Content {
   lang: Lang;
   meta: {
@@ -35,39 +22,43 @@ export interface Content {
     name: string;
     homeLabel: string;
     navLabel: string;
-    nav: { projects: string; experience: string; contact: string };
     langSwitchLabel: string;
     langNames: Record<Lang, string>;
+  };
+  /** Anclas de las secciones (en el idioma de la URL) y su texto en el menú. */
+  sections: {
+    projects: { id: string; label: string };
+    experience: { id: string; label: string };
+    contact: { id: string; label: string };
   };
   hero: {
     label: string;
     title: string;
-    intro: string;
+    lead: string;
   };
   now: {
     label: string;
     role: string;
-    details: string;
+    meta: string;
   };
   featured: {
     label: string;
     status: string;
-    name: string;
-    description: string;
+    title: string;
+    text: string;
     stagesLabel: string;
     stages: { name: string; highlight?: boolean }[];
     stack: string;
-    cta: string;
-    ctaUrl: string;
+    cta: Link;
   };
-  stats: [Stat, Stat];
+  stats: { label: string; value: string; text: string }[];
   projects: {
-    heading: string;
-    items: Project[];
+    /** Texto para lectores de pantalla que acompaña a cada enlace. */
+    linkHint: string;
+    items: { label: string; name: string; description: string; stack: string; href: string }[];
   };
   experience: {
-    label: string;
-    jobs: Job[];
+    items: { dates: string; role: string; company: string; text: string }[];
   };
   stack: {
     label: string;
@@ -75,11 +66,9 @@ export interface Content {
     items: string[];
   };
   contact: {
-    heading: string;
     terminal: { alt: string; lines: string[] };
-    emailLabel: string;
-    email: string;
+    email: { label: string; address: string };
     linksLabel: string;
-    links: { label: string; url: string; external: boolean }[];
+    links: Link[];
   };
 }

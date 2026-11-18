@@ -1,10 +1,5 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import ContactRow from '../../components/ContactRow.astro';
-import ExperienceRow from '../../components/ExperienceRow.astro';
-import FeaturedRow from '../../components/FeaturedRow.astro';
-import HeroRow from '../../components/HeroRow.astro';
-import ProjectsRow from '../../components/ProjectsRow.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import { getContent, LANGS, type Lang } from '../../content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -13,15 +8,134 @@ export const getStaticPaths = (() =>
   LANGS.map((lang) => ({ params: { lang } }))) satisfies GetStaticPaths;
 
 const content = getContent(Astro.params.lang as Lang);
+const { hero, now, featured, stats, projects, experience, stack, contact, sections } = content;
 ---
 
 <BaseLayout content={content}>
   <SiteHeader content={content} />
-  <main id="main" class="page-main">
-    <HeroRow content={content} />
-    <FeaturedRow content={content} />
-    <ProjectsRow content={content} />
-    <ExperienceRow content={content} />
-    <ContactRow content={content} />
+  <main id="main" class="bento">
+    {/* 2. Hero + acento */}
+    <div class="row row--hero" data-row="hero">
+      <section class="cell cell--hero" aria-labelledby="hero-title">
+        <p class="label">{hero.label}</p>
+        <h1 class="hero__title" id="hero-title">{hero.title}</h1>
+        <p class="hero__lead">{hero.lead}</p>
+      </section>
+      <aside class="cell cell--accent" aria-labelledby="now-label">
+        <p class="label label--ink" id="now-label">{now.label}</p>
+        <div>
+          <p class="now__role">{now.role}</p>
+          <p class="now__meta">{now.meta}</p>
+        </div>
+      </aside>
+    </div>
+
+    {/* 3. Proyecto principal + cifras */}
+    <div class="row row--featured" data-row="featured">
+      <section class="cell cell--featured" aria-labelledby="featured-title">
+        <div class="cell__labels">
+          <p class="label">{featured.label}</p>
+          <p class="label">{featured.status}</p>
+        </div>
+        <h2 class="featured__title" id="featured-title">{featured.title}</h2>
+        <p class="featured__text">{featured.text}</p>
+        <ol class="stages" aria-label={featured.stagesLabel}>
+          {
+            featured.stages.map((stage) => (
+              <li class:list={['stages__item', { 'stages__item--on': stage.highlight }]}>
+                {stage.name}
+              </li>
+            ))
+          }
+        </ol>
+        <div class="featured__foot">
+          <p class="meta">{featured.stack}</p>
+          <a class="button" href={featured.cta.href}>{featured.cta.label}</a>
+        </div>
+      </section>
+      <div class="stack-col">
+        {
+          stats.map((stat) => (
+            <div class="cell cell--stat">
+              <p class="label">{stat.label}</p>
+              <p class="stat__value">{stat.value}</p>
+              <p class="stat__text">{stat.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* 4. Proyectos */}
+    <section class="row row--projects" id={sections.projects.id} aria-labelledby="projects-title" data-row="projects">
+      <h2 class="sr-only" id="projects-title">{sections.projects.label}</h2>
+      {
+        projects.items.map((project) => (
+          <a class="cell cell--project" href={project.href}>
+            <span class="label">{project.label}</span>
+            <span class="project__name">
+              {project.name}
+              <span aria-hidden="true"> ↗</span>
+            </span>
+            <span class="project__desc">{project.description}</span>
+            <span class="meta project__stack">{project.stack}</span>
+            <span class="sr-only">{projects.linkHint}</span>
+          </a>
+        ))
+      }
+    </section>
+
+    {/* 5. Experiencia + con qué trabajo */}
+    <div class="row row--experience" data-row="experience">
+      <section class="cell cell--experience" id={sections.experience.id} aria-labelledby="experience-title">
+        <h2 class="label" id="experience-title">{sections.experience.label}</h2>
+        <ol class="jobs">
+          {
+            experience.items.map((job) => (
+              <li class="job">
+                <p class="job__dates meta">{job.dates}</p>
+                <div>
+                  <h3 class="job__role">
+                    {job.role} <span class="job__company">· {job.company}</span>
+                  </h3>
+                  <p class="job__text">{job.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+      <section class="cell cell--alt cell--stack" aria-labelledby="stack-title">
+        <h2 class="label" id="stack-title">{stack.label}</h2>
+        <p class="stack__main">{stack.main}</p>
+        <ul class="stack__list">
+          {stack.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    </div>
+
+    {/* 6. Contacto */}
+    <section class="row row--contact" id={sections.contact.id} aria-labelledby="contact-title" data-row="contact">
+      <h2 class="sr-only" id="contact-title">{sections.contact.label}</h2>
+      <div class="cell cell--terminal" role="img" aria-label={contact.terminal.alt}>
+        <pre class="terminal" aria-hidden="true">{contact.terminal.lines.join('\n')}</pre>
+      </div>
+      <div class="cell cell--ink cell--email">
+        <p class="label label--on-ink">{contact.email.label}</p>
+        <a class="email" href={`mailto:${contact.email.address}`}>{contact.email.address}</a>
+      </div>
+      <ul class="stack-col links" aria-label={contact.linksLabel}>
+        {
+          contact.links.map((link) => (
+            <li class="links__item">
+              <a class="cell cell--link" href={link.href}>
+                {link.label}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
   </main>
 </BaseLayout>

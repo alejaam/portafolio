@@ -1,4 +1,7 @@
-/* Fuentes servidas desde el propio sitio (public/fonts). Licencia SIL OFL 1.1. */
+/*
+ * Fuentes servidas desde el propio sitio (public/fonts/), sin CDN de terceros.
+ * Subconjunto latino de Fontsource; ver public/fonts/README.md.
+ */
 @font-face {
   font-family: 'Familjen Grotesk';
   font-style: normal;

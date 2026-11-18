@@ -1,16 +1,12 @@
-import type { Content } from './types';
 import {
-  DEVAGENTX_CASE_URL,
-  GITHUB_PROFILE_URL,
-  PENDING_CONTACT_EMAIL,
-  PENDING_CV_PATH,
-  PENDING_LINKEDIN_URL,
-  REPOS,
-  TERMINAL_LINES,
-} from './shared';
+  GITHUB_URL,
+  EMAIL,
+  LINKEDIN_URL,
+} from './contact';
+import type { Content } from './types';
 
-/** PENDIENTE: descripción del puesto actual (proyecto y resultado medible). */
-const PENDING_CURRENT_ROLE_DESCRIPTION = '[pendiente: proyecto y resultado medible]';
+/** PENDIENTE: proyecto y resultado medible del puesto actual (lo entrega Javier). */
+const PENDIENTE_PUESTO_ACTUAL = '[pendiente: proyecto y resultado medible]';
 
 export const es: Content = {
   lang: 'es',
@@ -23,28 +19,30 @@ export const es: Content = {
   header: {
     name: 'Javier Alamar',
     homeLabel: 'Javier Alamar, inicio',
-    navLabel: 'Principal',
-    nav: { projects: 'Proyectos', experience: 'Experiencia', contact: 'Contacto' },
+    navLabel: 'Secciones',
     langSwitchLabel: 'Idioma',
     langNames: { es: 'Español', en: 'English' },
+  },
+  sections: {
+    projects: { id: 'proyectos', label: 'Proyectos' },
+    experience: { id: 'experiencia', label: 'Experiencia' },
+    contact: { id: 'contacto', label: 'Contacto' },
   },
   hero: {
     label: 'Software Engineer · Backend · Go',
     title: 'Backend en Go para sistemas que usan millones de personas.',
-    intro:
-      'Llevo más de cinco años en Mercado Libre. Fuera del trabajo construyo herramientas que ponen a agentes de IA a programar.',
+    lead: 'Llevo más de cinco años en Mercado Libre. Fuera del trabajo construyo herramientas que ponen a agentes de IA a programar.',
   },
   now: {
     label: 'Ahora',
     role: 'Software Engineer en Mercado Libre',
-    details: 'feb 2024 — hoy · remoto, México',
+    meta: 'feb 2024 — hoy · remoto, México',
   },
   featured: {
     label: 'Proyecto principal',
     status: '2026 · en curso',
-    name: 'devagentx',
-    description:
-      'Una fábrica de software personal: toma un issue de GitHub, lo implementa con un agente dentro de un contenedor, lo revisa con otro modelo y me entrega un PR listo para aprobar.',
+    title: 'devagentx',
+    text: 'Una fábrica de software personal: toma un issue de GitHub, lo implementa con un agente dentro de un contenedor, lo revisa con otro modelo y me entrega un PR listo para aprobar.',
     stagesLabel: 'Etapas del flujo',
     stages: [
       { name: 'backlog' },
@@ -54,40 +52,40 @@ export const es: Content = {
       { name: 'pull request' },
     ],
     stack: 'Go · Docker · MCP · React',
-    cta: 'Leer el caso',
-    ctaUrl: DEVAGENTX_CASE_URL,
+    // La página del caso llega en otro issue.
+    cta: { label: 'Leer el caso →', href: '#' },
   },
   stats: [
-    { label: 'Trayectoria', value: '5+', caption: 'años en Mercado Libre' },
+    { label: 'Trayectoria', value: '5+', text: 'años en Mercado Libre' },
     {
       label: 'Agentes que orquesto',
       value: '4',
-      caption: 'Claude Code, Codex, OpenCode, Antigravity',
+      text: 'Claude Code, Codex, OpenCode, Antigravity',
     },
   ],
   projects: {
-    heading: 'Proyectos',
+    linkHint: '(repositorio en GitHub)',
     items: [
       {
         label: 'App · finanzas',
         name: 'micha',
         description: 'Gastos compartidos para roomies, parejas y familias.',
         stack: 'Go (DDD, hexagonal) · PostgreSQL · React',
-        url: REPOS.micha,
+        href: 'https://github.com/alejaam/micha',
       },
       {
         label: 'Plataforma · torneos',
         name: 'tourney-rank',
         description: 'Torneos de varios juegos con cálculo automático de ranking.',
         stack: 'Go (clean architecture) · MongoDB · React',
-        url: REPOS.tourneyRank,
+        href: 'https://github.com/alejaam/tourney-rank',
       },
       {
         label: 'Servicio · HTTP',
         name: 'twitch-gpt-bot',
         description: 'Puente entre los comandos del chat de Twitch y un LLM.',
         stack: 'Go, solo librería estándar · Docker',
-        url: REPOS.twitchGptBot,
+        href: 'https://github.com/alejaam/twitch-gpt-bot',
       },
       {
         label: 'Kit · agentes',
@@ -95,36 +93,35 @@ export const es: Content = {
         description:
           'Reglas, skills y memoria portables entre Claude Code, Codex, Copilot CLI y OpenCode.',
         stack: 'Configuración · Markdown',
-        url: REPOS.devharness,
+        href: 'https://github.com/alejaam/devharness',
       },
     ],
   },
   experience: {
-    label: 'Experiencia',
-    jobs: [
+    items: [
       {
         dates: 'feb 2024 — hoy',
         role: 'Software Engineer',
         company: 'Mercado Libre',
-        description: PENDING_CURRENT_ROLE_DESCRIPTION,
+        text: PENDIENTE_PUESTO_ACTUAL,
       },
       {
         dates: 'jun 2021 — feb 2024',
         role: 'Software Development Analyst',
         company: 'Mercado Libre',
-        description: 'Renovación del sitio de Mercado Libre Argentina y su migración.',
+        text: 'Renovación del sitio de Mercado Libre Argentina y su migración.',
       },
       {
         dates: 'ago 2020 — jun 2021',
         role: 'Web Developer Jr',
         company: 'Segmail',
-        description: 'Desarrollo web para una empresa de logística y fulfillment.',
+        text: 'Desarrollo web para una empresa de logística y fulfillment.',
       },
       {
         dates: 'sep 2019 — ago 2020',
         role: 'Intern PHP',
         company: 'Master Loyalty Group',
-        description: 'Mejoras a aplicaciones internas: frontend, backend y base de datos.',
+        text: 'Mejoras a aplicaciones internas: frontend, backend y base de datos.',
       },
     ],
   },
@@ -141,18 +138,21 @@ export const es: Content = {
     ],
   },
   contact: {
-    heading: 'Contacto',
     terminal: {
-      alt: 'Salida decorativa de go test ./...: todas las pruebas pasan.',
-      lines: TERMINAL_LINES,
+      alt: 'Salida decorativa de una terminal: go test ./... pasa en todos los paquetes.',
+      lines: [
+        '$ go test ./...',
+        'ok   micha/internal/expense     0.412s',
+        'ok   tourney-rank/ranking       0.388s',
+        'ok   twitch-gpt-bot/bot         0.127s',
+        'PASS',
+      ],
     },
-    emailLabel: 'Escríbeme',
-    email: PENDING_CONTACT_EMAIL,
-    linksLabel: 'En otros lados',
+    email: { label: 'Escríbeme', address: EMAIL },
+    linksLabel: 'Otros enlaces',
     links: [
-      { label: 'LinkedIn', url: PENDING_LINKEDIN_URL, external: true },
-      { label: 'GitHub', url: GITHUB_PROFILE_URL, external: true },
-      { label: 'CV en PDF', url: PENDING_CV_PATH, external: false },
+      { label: 'LinkedIn', href: LINKEDIN_URL },
+      { label: 'GitHub', href: GITHUB_URL },
     ],
   },
 };

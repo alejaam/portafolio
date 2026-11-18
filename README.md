@@ -38,7 +38,8 @@ pnpm test       # corre tests/*.test.mjs con el runner de Node (node:test)
 No usan dependencias extra. `pnpm build` las corre al terminar, así que una regresión rompe la verificación automática:
 
 - `tests/paths.test.mjs`: `localizePath` (cambio de idioma sin duplicar prefijos como `/en/es/`).
-- `tests/dist.test.mjs`: revisa `dist/`: la raíz redirige a `/es/`, existen `/es/` y `/en/` con su `lang`, y el selector apunta al otro idioma y marca el actual. Necesita un build previo.
+- `tests/dist.test.mjs`: revisa `dist/`: la raíz redirige a `/es/`, existen `/es/` y `/en/` con su `lang`, y el selector apunta al otro idioma y marca el actual. También que la página tenga las filas del bento en orden, los enlaces a los repos y al correo, y que el menú apunte a anclas existentes. Necesita un build previo.
+- `tests/styles.test.mjs`: el CSS no usa `border-radius`, `box-shadow` ni degradados, y declara las cinco fuentes locales, que existen en `public/fonts/` como woff2 válidos.
 
 ## Estructura
 
@@ -47,31 +48,29 @@ src/
   content/       todo el texto del sitio
     es.ts        contenido en español
     en.ts        contenido en inglés
-    shared.ts    enlaces, correo y CV (iguales en los dos idiomas)
     types.ts     forma del contenido; ambos idiomas la cumplen
+    contact.ts   correo, LinkedIn y GitHub
     paths.js     idiomas disponibles y helpers de rutas (JS para probarlo con Node)
     index.ts     punto de entrada: contenido por idioma y reexporta paths.js
-  components/    una fila del bento por componente
+  components/    componentes (cabecera con menú y selector ES/EN)
   layouts/       documento HTML base
-  pages/[lang]/  genera /es/ y /en/
-  styles/        CSS global (variables, retícula) y @font-face
-tests/           pruebas con node:test (rutas por idioma y sitio compilado)
-public/
-  fonts/         Familjen Grotesk e IBM Plex Mono en woff2 (SIL OFL 1.1)
-  cv/            CV en PDF
+  pages/[lang]/  genera /es/ y /en/: la página de inicio bento
+  styles/
+    global.css   variables de diseño, retícula y estilos de la página
+    fonts.css    @font-face de las fuentes locales
+public/fonts/    Familjen Grotesk (400, 500, 700) e IBM Plex Mono (400, 500) en woff2
+tests/           pruebas con node:test (rutas, sitio compilado y reglas del CSS)
 ```
 
-- **Textos:** se editan solo en `src/content/es.ts` y `src/content/en.ts`. Los componentes no tienen textos propios.
-- **Estilos:** CSS propio con variables en `src/styles/global.css`, sin Tailwind ni librerías de componentes. El bento es un contenedor con fondo tinta y `gap: 1px`: las líneas son el hueco entre celdas.
-- **Fuentes:** se sirven desde `public/fonts/`, no desde un CDN.
+- **Textos:** se editan solo en `src/content/es.ts` y `src/content/en.ts` (los datos de contacto, en `src/content/contact.ts`). Los componentes no tienen textos propios.
+- **Estilos:** CSS propio con variables en `src/styles/global.css`, sin Tailwind ni librerías de componentes.
+- **Fuentes:** los cinco `.woff2` están incluidos en `public/fonts/` y se sirven desde el propio sitio (sin CDN). Licencia SIL Open Font License 1.1; origen y detalles en `public/fonts/README.md`.
 
 ## Contenido pendiente
 
-Hay valores provisionales marcados con `PENDIENTE` (búsqueda: `grep -rn PENDIENTE src`):
+Algunos datos todavía no están y van como constantes marcadas con `PENDIENTE`; el sitio compila con ellas, pero hay que reemplazarlas antes de publicar:
 
-| Dato | Dónde |
-|---|---|
-| Correo de contacto | `PENDING_CONTACT_EMAIL` en `src/content/shared.ts` |
-| URL de LinkedIn | `PENDING_LINKEDIN_URL` en `src/content/shared.ts` |
-| CV en PDF | reemplazar `public/cv/javier-alamar-cv.pdf` (hoy es un PDF provisional) |
-| Descripción del puesto actual | `PENDING_CURRENT_ROLE_DESCRIPTION` en `src/content/es.ts` y `en.ts` |
+- CV en PDF: por ahora no se publica. Para añadirlo, poner el PDF en `public/cv/` y un enlace en `links` de `es.ts` y `en.ts`.
+- Descripción del puesto actual: `PENDIENTE_PUESTO_ACTUAL` en `src/content/es.ts` y `PENDIENTE_CURRENT_ROLE` en `src/content/en.ts`.
+
+Para encontrarlas: `grep -rn PENDIENTE src/content`.
