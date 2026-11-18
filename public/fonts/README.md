@@ -10,9 +10,19 @@ Archivos `.woff2` (subconjunto latino) que declara `src/styles/fonts.css`. Se si
 | `ibm-plex-mono-latin-400-normal.woff2` | IBM Plex Mono | 400 |
 | `ibm-plex-mono-latin-500-normal.woff2` | IBM Plex Mono | 500 |
 
-Origen: paquetes [`@fontsource/familjen-grotesk`](https://www.npmjs.com/package/@fontsource/familjen-grotesk) e [`@fontsource/ibm-plex-mono`](https://www.npmjs.com/package/@fontsource/ibm-plex-mono), carpeta `files/`, con los mismos nombres. Ambas familias tienen licencia SIL Open Font License 1.1, que permite servirlas desde el sitio.
+Los cinco archivos están incluidos en el repo: no hace falta descargarlos para compilar. `tests/styles.test.mjs` comprueba que cada fuente que declaran `src/styles/fonts.css` y `src/layouts/BaseLayout.astro` exista aquí y sea un woff2 válido.
 
-Para descargarlas sin agregar dependencias al proyecto:
+## Origen
+
+Paquetes [`@fontsource/familjen-grotesk`](https://www.npmjs.com/package/@fontsource/familjen-grotesk) e [`@fontsource/ibm-plex-mono`](https://www.npmjs.com/package/@fontsource/ibm-plex-mono), carpeta `files/`, con los mismos nombres y sin modificar.
+
+## Licencia
+
+Familjen Grotesk e IBM Plex Mono se distribuyen bajo la [SIL Open Font License 1.1](https://openfontlicense.org) (OFL-1.1). La licencia permite usarlas, incrustarlas y servirlas desde el sitio; lo que no permite es vender las fuentes por sí solas.
+
+## Actualizarlas
+
+Solo si se quiere otra versión. Sin agregar dependencias al proyecto:
 
 ```sh
 for f in familjen-grotesk-latin-{400,500,700}-normal; do

@@ -39,7 +39,7 @@ No usan dependencias extra. `pnpm build` las corre al terminar, así que una reg
 
 - `tests/paths.test.mjs`: `localizePath` (cambio de idioma sin duplicar prefijos como `/en/es/`).
 - `tests/dist.test.mjs`: revisa `dist/`: la raíz redirige a `/es/`, existen `/es/` y `/en/` con su `lang`, y el selector apunta al otro idioma y marca el actual. También que la página tenga las filas del bento en orden, los enlaces a los repos y al correo, y que el menú apunte a anclas existentes. Necesita un build previo.
-- `tests/styles.test.mjs`: el CSS no usa `border-radius`, `box-shadow` ni degradados, y declara las cinco fuentes locales.
+- `tests/styles.test.mjs`: el CSS no usa `border-radius`, `box-shadow` ni degradados, y declara las cinco fuentes locales, que existen en `public/fonts/` como woff2 válidos.
 
 ## Estructura
 
@@ -64,7 +64,7 @@ tests/           pruebas con node:test (rutas, sitio compilado y reglas del CSS)
 
 - **Textos:** se editan solo en `src/content/es.ts` y `src/content/en.ts` (los datos compartidos pendientes, en `src/content/pending.ts`). Los componentes no tienen textos propios.
 - **Estilos:** CSS propio con variables en `src/styles/global.css`, sin Tailwind ni librerías de componentes.
-- **Fuentes:** se sirven desde `public/fonts/` (sin CDN). Los archivos esperados y de dónde salen están en `public/fonts/README.md`.
+- **Fuentes:** los cinco `.woff2` están incluidos en `public/fonts/` y se sirven desde el propio sitio (sin CDN). Licencia SIL Open Font License 1.1; origen y detalles en `public/fonts/README.md`.
 
 ## Contenido pendiente
 

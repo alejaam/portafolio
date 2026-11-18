@@ -35,3 +35,21 @@ test('las fuentes se sirven desde /fonts/ con los pesos pedidos', () => {
   );
   for (const f of faces) assert.match(f.src ?? '', /^\/fonts\/[\w-]+\.woff2$/);
 });
+
+test('cada fuente declarada o precargada existe en public/fonts/ y es woff2', () => {
+  const pub = fileURLToPath(new URL('../public', import.meta.url));
+  const layout = readFileSync(
+    fileURLToPath(new URL('../src/layouts/BaseLayout.astro', import.meta.url)),
+    'utf8',
+  );
+  const urls = new Set([
+    ...[...css.matchAll(/url\('([^']+)'\)/g)].map(([, u]) => u),
+    ...[...layout.matchAll(/rel="preload" href="([^"]+)"/g)].map(([, u]) => u),
+  ]);
+  assert.ok(urls.size >= 5);
+  for (const u of urls) {
+    assert.match(u, /^\/fonts\/[\w-]+\.woff2$/);
+    const head = readFileSync(join(pub, u)).subarray(0, 4).toString('latin1');
+    assert.equal(head, 'wOF2', `${u} no es un woff2 válido`);
+  }
+});
