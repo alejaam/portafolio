@@ -18,7 +18,7 @@ Paquetes [`@fontsource/familjen-grotesk`](https://www.npmjs.com/package/@fontsou
 
 ## Licencia
 
-Familjen Grotesk e IBM Plex Mono se distribuyen bajo la [SIL Open Font License 1.1](https://openfontlicense.org) (OFL-1.1). La licencia permite usarlas, incrustarlas y servirlas desde el sitio; lo que no permite es vender las fuentes por sí solas.
+Familjen Grotesk e IBM Plex Mono se distribuyen bajo la [SIL Open Font License 1.1](https://openfontlicense.org) (OFL-1.1). La licencia permite usarlas, incrustarlas y servirlas desde el sitio; lo que no permite es vender las fuentes por sí solas. El texto completo de la licencia y los avisos de copyright están junto a las fuentes: `OFL-FamiljenGrotesk.txt` y `OFL-IBMPlexMono.txt`; la OFL exige conservarlos.
 
 ## Actualizarlas
 
