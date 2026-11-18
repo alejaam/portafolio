@@ -1,9 +1,8 @@
 import {
   GITHUB_URL,
-  PENDIENTE_CV_PATH,
-  PENDIENTE_EMAIL,
-  PENDIENTE_LINKEDIN_URL,
-} from './pending';
+  EMAIL,
+  LINKEDIN_URL,
+} from './contact';
 import type { Content } from './types';
 
 /** PENDIENTE: proyecto y resultado medible del puesto actual (lo entrega Javier). */
@@ -149,12 +148,11 @@ export const es: Content = {
         'PASS',
       ],
     },
-    email: { label: 'Escríbeme', address: PENDIENTE_EMAIL },
+    email: { label: 'Escríbeme', address: EMAIL },
     linksLabel: 'Otros enlaces',
     links: [
-      { label: 'LinkedIn', href: PENDIENTE_LINKEDIN_URL },
+      { label: 'LinkedIn', href: LINKEDIN_URL },
       { label: 'GitHub', href: GITHUB_URL },
-      { label: 'CV en PDF', href: PENDIENTE_CV_PATH },
     ],
   },
 };

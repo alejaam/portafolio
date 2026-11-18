@@ -49,7 +49,7 @@ src/
     es.ts        contenido en español
     en.ts        contenido en inglés
     types.ts     forma del contenido; ambos idiomas la cumplen
-    pending.ts   datos pendientes (correo, LinkedIn, CV)
+    contact.ts   correo, LinkedIn y GitHub
     paths.js     idiomas disponibles y helpers de rutas (JS para probarlo con Node)
     index.ts     punto de entrada: contenido por idioma y reexporta paths.js
   components/    componentes (cabecera con menú y selector ES/EN)
@@ -62,7 +62,7 @@ public/fonts/    Familjen Grotesk (400, 500, 700) e IBM Plex Mono (400, 500) en 
 tests/           pruebas con node:test (rutas, sitio compilado y reglas del CSS)
 ```
 
-- **Textos:** se editan solo en `src/content/es.ts` y `src/content/en.ts` (los datos compartidos pendientes, en `src/content/pending.ts`). Los componentes no tienen textos propios.
+- **Textos:** se editan solo en `src/content/es.ts` y `src/content/en.ts` (los datos de contacto, en `src/content/contact.ts`). Los componentes no tienen textos propios.
 - **Estilos:** CSS propio con variables en `src/styles/global.css`, sin Tailwind ni librerías de componentes.
 - **Fuentes:** los cinco `.woff2` están incluidos en `public/fonts/` y se sirven desde el propio sitio (sin CDN). Licencia SIL Open Font License 1.1; origen y detalles en `public/fonts/README.md`.
 
@@ -70,7 +70,7 @@ tests/           pruebas con node:test (rutas, sitio compilado y reglas del CSS)
 
 Algunos datos todavía no están y van como constantes marcadas con `PENDIENTE`; el sitio compila con ellas, pero hay que reemplazarlas antes de publicar:
 
-- Correo de contacto, URL de LinkedIn y ruta del CV en PDF: `src/content/pending.ts`. El PDF va en `public/cv/`.
+- CV en PDF: por ahora no se publica. Para añadirlo, poner el PDF en `public/cv/` y un enlace en `links` de `es.ts` y `en.ts`.
 - Descripción del puesto actual: `PENDIENTE_PUESTO_ACTUAL` en `src/content/es.ts` y `PENDIENTE_CURRENT_ROLE` en `src/content/en.ts`.
 
 Para encontrarlas: `grep -rn PENDIENTE src/content`.

@@ -80,8 +80,15 @@ for (const lang of ['es', 'en']) {
     for (const repo of ['micha', 'tourney-rank', 'twitch-gpt-bot', 'devharness']) {
       assert.match(html, new RegExp(`<a class="cell cell--project" href="https://github.com/alejaam/${repo}"`));
     }
-    assert.match(html, /href="mailto:[^"]+@[^"]+"/);
+    assert.match(html, /href="mailto:ale\.jaam21@gmail\.com"/);
     assert.match(html, /href="https:\/\/github.com\/alejaam"/);
+    assert.match(html, /href="https:\/\/www\.linkedin\.com\/in\/alejandro-alamar"/);
+  });
+
+  test(`/${lang}/ no publica datos de contacto provisionales ni un CV que no existe`, () => {
+    const html = page(`/${lang}/`);
+    assert.doesNotMatch(html, /example\.com|linkedin\.com\/in\/pendiente/i);
+    assert.doesNotMatch(html, /href="\/cv\//);
   });
 
   test(`/${lang}/ enlaza el menú a anclas que existen`, () => {
