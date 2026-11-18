@@ -103,3 +103,455 @@ a {
 .skip-link:focus {
   top: var(--page-gutter);
 }
+
+/* ───────── Marco y retícula ─────────
+ * El bento son contenedores con fondo tinta y `gap: 1px`: las líneas son el
+ * fondo que asoma entre celdas. Esquinas rectas, sin sombras ni degradados.
+ */
+
+.frame {
+  display: grid;
+  gap: var(--line);
+  width: calc(100% - 2 * var(--page-gutter));
+  max-width: var(--container-max);
+  margin: var(--page-gutter) auto;
+  border: var(--line) solid var(--c-ink);
+  background: var(--c-ink);
+}
+
+.bento,
+.stack-col {
+  display: grid;
+  gap: var(--line);
+  background: var(--c-ink);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--line);
+  background: var(--c-ink);
+}
+
+.cell {
+  min-width: 0;
+  padding: var(--cell-pad);
+  background: var(--c-bg);
+  color: var(--c-ink);
+}
+
+.cell--alt {
+  background: var(--c-cell-alt);
+}
+
+.cell--accent {
+  background: var(--c-accent);
+  color: var(--c-ink);
+}
+
+.cell--ink {
+  background: var(--c-ink);
+  color: var(--c-on-ink);
+}
+
+@media (min-width: 640px) {
+  .row--projects {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .row--contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .row--contact .links {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .row--hero,
+  .row--featured,
+  .row--experience {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+  .row--projects {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .row--contact {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr);
+  }
+  .row--contact .links {
+    grid-column: auto;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ───────── Texto común ───────── */
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-text-muted);
+}
+
+/* Sobre acento o tinta el gris no llega a 4.5:1. */
+.label--ink {
+  color: var(--c-ink);
+}
+.label--on-ink {
+  color: var(--c-line-soft);
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--c-text-muted);
+}
+
+.cell__labels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+
+/* ───────── Cabecera ───────── */
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 24px;
+  padding-block: 8px;
+}
+
+.site-header__name,
+.site-nav__link,
+.lang-switch a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  text-decoration: none;
+}
+
+.site-header__name {
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+.site-header__end,
+.site-nav__list,
+.lang-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.site-header__end {
+  gap: 4px 20px;
+}
+
+.site-nav__list {
+  gap: 0 20px;
+}
+
+.site-nav__link {
+  font-weight: 500;
+}
+.site-nav__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.lang-switch {
+  gap: var(--line);
+  border: var(--line) solid var(--c-ink);
+  background: var(--c-ink);
+}
+
+.lang-switch a {
+  justify-content: center;
+  min-width: var(--touch);
+  padding: 0 8px;
+  background: var(--c-bg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.04em;
+}
+.lang-switch a[aria-current='page'] {
+  background: var(--c-ink);
+  color: var(--c-on-ink);
+}
+.lang-switch a:focus-visible {
+  outline-offset: 2px;
+}
+
+/* ───────── Hero y acento ───────── */
+
+.cell--hero {
+  display: grid;
+  align-content: start;
+  gap: 24px;
+  padding-block: clamp(32px, 5vw, 64px);
+}
+
+.hero__title {
+  max-width: 15ch;
+  font-size: var(--fs-title);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.hero__lead {
+  max-width: 46ch;
+  font-size: clamp(17px, 1.6vw, 20px);
+  color: var(--c-text-muted);
+}
+
+.cell--accent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.now__role {
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.now__meta {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+/* ───────── Proyecto principal y cifras ───────── */
+
+.cell--featured {
+  display: grid;
+  gap: 20px;
+}
+
+.featured__title {
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.featured__text {
+  max-width: 60ch;
+}
+
+.stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stages__item {
+  padding: 6px 10px;
+  border: var(--line) solid var(--c-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  line-height: 1.3;
+}
+
+.stages__item--on {
+  background: var(--c-ink);
+  color: var(--c-on-ink);
+}
+
+.featured__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: 8px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  padding: 0 18px;
+  border: var(--line) solid var(--c-ink);
+  background: var(--c-accent);
+  color: var(--c-ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+.button:hover {
+  background: var(--c-ink);
+  color: var(--c-on-ink);
+}
+
+.cell--stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat__value {
+  margin-top: auto;
+  font-size: clamp(48px, 5vw, 68px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.stat__text {
+  color: var(--c-text-muted);
+}
+
+/* ───────── Proyectos ───────── */
+
+.cell--project {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: var(--touch);
+  text-decoration: none;
+}
+.cell--project:hover {
+  background: var(--c-cell-alt);
+}
+.cell--project:focus-visible,
+.cell--link:focus-visible {
+  outline-offset: -4px;
+}
+
+.project__name {
+  margin-top: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.project__stack {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+/* ───────── Experiencia y stack ───────── */
+
+.cell--experience {
+  display: grid;
+  align-content: start;
+  gap: 20px;
+}
+
+.job {
+  display: grid;
+  gap: 4px 24px;
+  padding-block: 16px;
+  border-top: var(--line) solid var(--c-line-soft);
+}
+.job:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+@media (min-width: 640px) {
+  .job {
+    grid-template-columns: 22ch minmax(0, 1fr);
+  }
+}
+
+.job__dates {
+  padding-top: 2px;
+}
+
+.job__role {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.job__company {
+  font-weight: 400;
+}
+
+.job__text {
+  margin-top: 4px;
+  color: var(--c-text-muted);
+}
+
+.cell--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stack__main {
+  font-size: clamp(64px, 8vw, 104px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.stack__list li {
+  padding-block: 8px;
+  border-top: var(--line) solid var(--c-line-soft);
+}
+
+/* ───────── Contacto ───────── */
+
+.terminal {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.cell--email {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.email {
+  display: inline-block;
+  min-height: var(--touch);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-underline-offset: 6px;
+  overflow-wrap: anywhere;
+}
+.email:focus-visible {
+  outline-color: var(--c-accent);
+}
+
+.links__item {
+  display: flex;
+}
+
+.cell--link {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: var(--touch);
+  font-weight: 500;
+  text-decoration: none;
+}
+.cell--link:hover {
+  background: var(--c-accent);
+}
